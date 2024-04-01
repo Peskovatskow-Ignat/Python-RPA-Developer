@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import BigInteger, DateTime, Enum
+from sqlalchemy import DECIMAL, BigInteger, DateTime, Enum
 from sqlalchemy.orm import Mapped, mapped_column
 
 from webapp.models.enum.task import TaskStatus
@@ -16,6 +16,6 @@ class Task(Base):
 
     start_time: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
 
-    work_time: Mapped[int] = mapped_column(BigInteger, nullable=True, default=None)
+    work_time: Mapped[float] = mapped_column(DECIMAL, nullable=True, default=None)
 
-    status: Mapped[str] = mapped_column(Enum(TaskStatus), default=TaskStatus.launched)
+    status: Mapped[TaskStatus] = mapped_column(Enum(TaskStatus), default=TaskStatus.launched)

@@ -9,7 +9,7 @@ from webapp.integrations.postgres import get_session
 from webapp.schema.robot.task import TaskPesp
 
 
-@task_router.patch('/{task_id}', status_code=status.HTTP_200_OK, response_model=TaskPesp)
+@task_router.post('/stop/{task_id}', status_code=status.HTTP_200_OK, response_model=TaskPesp)
 async def stop_by_id(
     task_id: int,
     session: AsyncSession = Depends(get_session),
@@ -25,7 +25,7 @@ async def stop_by_id(
     return parse_obj_as(TaskPesp, task)
 
 
-@task_router.patch('', status_code=status.HTTP_200_OK, response_model=TaskPesp)
+@task_router.post('/stop', status_code=status.HTTP_200_OK, response_model=TaskPesp)
 async def stop(
     session: AsyncSession = Depends(get_session),
 ) -> TaskPesp:

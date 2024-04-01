@@ -8,14 +8,14 @@ from webapp.models.enum.task import TaskStatus
 from webapp.models.robot.task import Task
 
 
-async def stop_task_by_id(session: AsyncSession, task_id: int) -> Task:
+async def stop_task_by_id(session: AsyncSession, task_id: int) -> Task | None:
     task = await session.get(Task, task_id)
 
     if not task or task.status == TaskStatus.revoked:
-        return
+        return None
 
     task.status = TaskStatus.revoked
-    task.work_time = (datetime.now() - task.start_time).total_seconds()
+    task.work_time = int((datetime.now() - task.start_time).total_seconds())
     app_celery.control.revoke(
         f'{task_id}',
         terminate=True,
@@ -25,15 +25,15 @@ async def stop_task_by_id(session: AsyncSession, task_id: int) -> Task:
     return task
 
 
-async def stop_task(session: AsyncSession) -> Task:
+async def stop_task(session: AsyncSession) -> Task | None:
 
     task = await session.scalar(select(Task).where(Task.status == TaskStatus.launched))
 
     if not task:
-        return
+        return None
 
     task.status = TaskStatus.revoked
-    task.work_time = (datetime.now() - task.start_time).total_seconds()
+    task.work_time = int((datetime.now() - task.start_time).total_seconds())
     app_celery.control.revoke(
         f'{task.id}',
         terminate=True,
