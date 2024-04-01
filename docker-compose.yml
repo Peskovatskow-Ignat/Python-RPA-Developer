@@ -4,7 +4,7 @@ services:
   web:
     container_name: web
     build:
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/web/Dockerfile
       context: .
     ports:
       - "8000:8000"
@@ -52,6 +52,36 @@ services:
     image: redis:6.2.4
     ports:
       - "6379:6379"
+    networks:
+      - sirius_network
+
+  flower:
+    image: mher/flower:0.9.7
+    command:
+      [
+        'flower',
+        '--broker=redis://redis:6379/',
+        '--port=5555'
+      ]
+    ports:
+      - "5555:5555"
+    depends_on:
+      - redis
+    networks:
+      - sirius_network
+
+  worker:
+    build:
+      context: .
+      dockerfile: docker/celery/Dockerfile
+    command: celery -A webapp.integrations.celery_app.celery.app_celery worker -l info
+    # command: tail -f /dev/null
+    environment:
+      - BROKER_URL=redis://redis:6379
+      - RESULT_BACKEND=redis://redis:6379
+    depends_on:
+      - redis
+      - web
     networks:
       - sirius_network
 

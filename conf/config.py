@@ -18,5 +18,7 @@ class Settings(BaseSettings):
     REDIS_SIRIUS_CACHE_PREFIX: str
     FILE_EXPIRE_TIME: timedelta = timedelta(minutes=15)
 
+    CELERY_BROKER_URL: str
+
 
 settings = Settings()
