@@ -1,5 +1,3 @@
-from typing import Annotated
-
 from fastapi import Depends, HTTPException
 from pydantic import parse_obj_as
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -12,7 +10,7 @@ from webapp.schema.robot.task import TaskPesp
 
 
 @task_router.patch('/{task_id}', status_code=status.HTTP_200_OK, response_model=TaskPesp)
-async def stop(
+async def stop_by_id(
     task_id: int,
     session: AsyncSession = Depends(get_session),
 ) -> TaskPesp:

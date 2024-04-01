@@ -1,5 +1,3 @@
-import asyncio
-
 from webapp.integrations.celery_app.celery import app_celery
 
 
