@@ -6,6 +6,7 @@ from webapp.models.enum.task import TaskStatus
 
 
 class TaskPesp(BaseModel):
+    """Модель которая возврвещается при создании, изменении и вывода задачи."""
 
     model_config = ConfigDict(from_attributes=True)
 

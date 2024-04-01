@@ -47,6 +47,48 @@ services:
       - ./scripts/postgres:/docker-entrypoint-initdb.d
     networks:
       - sirius_network
+
+  test_db:
+    container_name: test_db
+    image: library/postgres:13.2
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=test_db
+    profiles:
+      - donotstart
+    
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "pg_isready",
+          "-U",
+          "postgres",
+          "-d",
+          "test_db"
+        ]
+      interval: 5s
+      retries: 5
+    # networks:
+    #   - sirius_network
+
+
+  tests:
+    container_name: tests
+    build:
+      dockerfile: docker/web/Dockerfile
+      context: .
+    volumes:
+      - ./:/app/
+    depends_on:
+      - test_db
+    command: [ "pytest", "-vvs" ]
+    profiles:
+      - donotstart
+    # networks:
+    #   - sirius_network
+
   redis:
     container_name: redis
     image: redis:6.2.4
