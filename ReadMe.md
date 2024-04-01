@@ -1,16 +1,6 @@
 Асинхронные процессы которые запускаются с помощью Fast Api
    - Модели: Task
   
-Удалось реализовать:
-- [x] Упаковка проекта в docker compose и запуск через docker compose up без дополнительной настройки
-- [x] Прохождение flake8 + mypy в соответствии с конфигурациями проекта
-- [x] Брокер сообщений через redis
-- [x] Orm:  sqlalchemy2.0
-- [x] Валидация входящих данных (pydantic)
-- [x] Настройки в env
-- [x] poetry как сборщик пакетов
-- [x] Обработка ошибок и соответствующие статусы ответов
-
 # Run
   
     git clone https://github.com/Peskovatskow-Ignat/Python-RPA-Developer.git
