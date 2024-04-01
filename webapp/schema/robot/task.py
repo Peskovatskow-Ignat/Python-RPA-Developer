@@ -19,3 +19,8 @@ class TaskPesp(BaseModel):
     work_time: float | None
 
     status: TaskStatus
+
+
+class TaskData(BaseModel):
+    
+    start_number: int
