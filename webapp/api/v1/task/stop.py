@@ -11,7 +11,7 @@ from webapp.integrations.postgres import get_session
 from webapp.schema.robot.task import TaskPesp
 
 
-@task_router.patch('_by_id', status_code=status.HTTP_200_OK, response_model=TaskPesp)
+@task_router.patch('/{task_id}', status_code=status.HTTP_200_OK, response_model=TaskPesp)
 async def stop(
     task_id: int,
     session: AsyncSession = Depends(get_session),
