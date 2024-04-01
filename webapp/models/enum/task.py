@@ -7,4 +7,4 @@ class TaskStatus(Enum):
 
     launched: Mapped[str] = "launched"
 
-    completed: Mapped[str] = "completed"
+    revoked: Mapped[str] = "revoked"

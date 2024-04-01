@@ -10,7 +10,6 @@ from webapp.migrate import migrate
 def setup_routes(app: FastAPI) -> None:
     routers = [task_router]
     for router in routers:
-        print(router)
         app.include_router(router)
 
 

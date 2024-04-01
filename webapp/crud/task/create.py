@@ -12,5 +12,4 @@ async def create_task(session: AsyncSession, start_number: int) -> Task:
         await session.flush()
         await session.commit()
 
-
     return task

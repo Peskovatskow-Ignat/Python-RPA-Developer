@@ -4,6 +4,7 @@ from pydantic import BaseModel, ConfigDict
 
 from webapp.models.enum.task import TaskStatus
 
+
 class TaskPesp(BaseModel):
 
     model_config = ConfigDict(from_attributes=True)
@@ -14,6 +15,6 @@ class TaskPesp(BaseModel):
 
     start_time: datetime
 
-    work_time: int | None
+    work_time: float | None
 
     status: TaskStatus

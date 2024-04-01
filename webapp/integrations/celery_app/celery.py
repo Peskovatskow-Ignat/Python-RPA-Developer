@@ -5,5 +5,5 @@ app_celery = Celery(
     broker="redis://redis:6379",
     include=["webapp.integrations.celery_app.tasks"],
     debug=True,
-    backend="redis://redis:6379"
+    backend="redis://redis:6379",
 )
