@@ -29,6 +29,6 @@ jobs:
     - name: Установка зависимостей
       run: |
         python -m pip install --upgrade pip
-        pip install mypy==1.5.1 pydantic==1.8.3
+        pip install mypy pydantic
     - name: Mypy
       run: mypy .
