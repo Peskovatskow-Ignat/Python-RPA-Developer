@@ -21,6 +21,13 @@ class TaskPesp(BaseModel):
     status: TaskStatus
 
 
-class TaskData(BaseModel):
-    
+class TaskCreate(BaseModel):
+    """Модель которая используется для создания задачи"""
+
     start_number: int
+
+
+class TaskStop(BaseModel):
+    """Модель которая используется для остановки задачи"""
+
+    task_id: int

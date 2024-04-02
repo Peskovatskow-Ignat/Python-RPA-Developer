@@ -6,16 +6,16 @@ from starlette import status
 from webapp.api.v1.task.router import task_router
 from webapp.crud.task.stop import stop_task, stop_task_by_id
 from webapp.integrations.postgres import get_session
-from webapp.schema.robot.task import TaskPesp
+from webapp.schema.robot.task import TaskPesp, TaskStop
 
 
-@task_router.post('/stop/{task_id}', status_code=status.HTTP_200_OK, response_model=TaskPesp)
+@task_router.post('/stop/id', status_code=status.HTTP_200_OK, response_model=TaskPesp)
 async def stop_by_id(
-    task_id: int,
+    body: TaskStop,
     session: AsyncSession = Depends(get_session),
 ) -> TaskPesp:
     try:
-        task = await stop_task_by_id(session, task_id)
+        task = await stop_task_by_id(session, body.task_id)
     except Exception:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
 
