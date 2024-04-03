@@ -14,6 +14,18 @@ async def stop_by_id(
     body: TaskStop,
     session: AsyncSession = Depends(get_session),
 ) -> TaskPesp:
+    """Останавливает задачу по идентификатору.
+
+    Args:
+        body (TaskStop): Данные для остановки задачи.
+        session (AsyncSession, optional): Сессия базы данных. Defaults to Depends(get_session).
+
+    Raises:
+        HTTPException: В случае ошибки в запросе или обработке.
+
+    Returns:
+        TaskPesp: Модель остановленной задачи.
+    """
     try:
         task = await stop_task_by_id(session, body.task_id)
     except Exception:
@@ -29,6 +41,17 @@ async def stop_by_id(
 async def stop(
     session: AsyncSession = Depends(get_session),
 ) -> TaskPesp:
+    """Останавливает текущую задачу.
+
+    Args:
+        session (AsyncSession, optional): Сессия базы данных. Defaults to Depends(get_session).
+
+    Raises:
+        HTTPException: В случае ошибки в запросе или обработке.
+
+    Returns:
+        TaskPesp: Модель остановленной задачи.
+    """
     try:
         task = await stop_task(session)
     except Exception:

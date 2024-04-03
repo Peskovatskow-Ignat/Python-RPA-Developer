@@ -3,6 +3,8 @@ from typing import AsyncGenerator
 from sqlalchemy import QueuePool
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker, create_async_engine
 
+from conf.config import settings
+
 
 def create_engine() -> AsyncEngine:
     """Создает асинхронный движок для работы с базой данных.
@@ -11,7 +13,7 @@ def create_engine() -> AsyncEngine:
         AsyncEngine: Асинхронный движок SQLAlchemy.
     """
     return create_async_engine(
-        'postgresql+asyncpg://postgres:postgres@web_db:5432/main_db',
+        settings.DB_URL,
         poolclass=QueuePool,
         connect_args={
             'statement_cache_size': 0,
