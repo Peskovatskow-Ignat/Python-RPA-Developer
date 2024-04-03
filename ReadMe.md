@@ -12,36 +12,41 @@
 # API
 
 ## methods
-`/task` - creates new task 
+POST `/task` - creates new task 
 
 >   curl -X 'POST' \
 'http://127.0.0.1:8000/api/v1/task?start_number=0' \
   -H 'accept: application/json' \
   -d ''
 
-`/task` - show all tasks
+GET `/task` - show all tasks
 
 >   curl -X 'GET' \
   'http://127.0.0.1:8000/api/v1/task' \
   -H 'accept: application/json'
 
-`/task/{task_id}` - returns task by id
+GET `/task/{task_id}` - returns task by id
 
 >   curl -X 'GET' \
   'http://127.0.0.1:8000/api/v1/task/{task_id}' \
   -H 'accept: application/json'
 
-`/task` - stopping the earliest task
+POST `/task/stop` - stopping the earliest task
 
->   curl -X 'PATCH' \
-  'http://127.0.0.1:8000/api/v1/task' \
-  -H 'accept: application/json'
+>   curl -X 'POST' \
+  'http://127.0.0.1:8000/api/v1/task/stop' \
+  -H 'accept: application/json' \
+  -d ''
 
-`/task/{task_id}` - stopping task by id
+POST `/task/stop/id` - stopping task by id
 
->   curl -X 'PATCH' \
-  'http://127.0.0.1:8000/api/v1/task/{task_id}' \
-  -H 'accept: application/json'
+>   curl -X 'POST' \
+  'http://127.0.0.1:8000/api/v1/task/stop/id' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "task_id": id
+}'
 
 # Docker compose
 ## App - web
@@ -49,7 +54,7 @@
 
 ## Celery
 
-> Система для обработк сообщений
+> Message processing system
 
 ## Redis - redis
 
@@ -63,10 +68,4 @@
 >    
 >    
 >    DB_URL=postgresql+asyncpg://postgres:postgres@web_db:5432/main_db
->    
->    REDIS_HOST=redis
->
->    REDIS_PORT=6379
->
->    REDIS_PASSWORD=
->    
+>        
